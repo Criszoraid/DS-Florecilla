@@ -15,6 +15,13 @@ This repository serves as the single source of truth for the Florecilla Design S
 - **File**: `tokens.json`
 - **Description**: JSON export of the design tokens (Colors, Typography, Spacing, etc.) for consumption in development.
 
+## Documentation
+We have automatically generated documentation based on the design tokens:
+
+- [**Colors**](docs/COLORS.md): Complete palette and color definitions.
+- [**Components**](docs/COMPONENTS.md): Component-specific tokens (Cards, Buttons, Navigation).
+- [**Translations**](docs/TRANSLATIONS.md): Localized strings for the application.
+
 ## Usage
 Design tokens can be transformed for various platforms (Web, iOS, Android) using tools like [Style Dictionary](https://amzn.github.io/style-dictionary/).
 
