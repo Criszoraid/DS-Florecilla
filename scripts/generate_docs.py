@@ -23,74 +23,64 @@ def generate_docs():
         modes = {m['modeId']: m['name'] for m in collection['modes']}
         
         if collection_name == '_Primitives':
-            # Split into Colors and Others, and Semantic/Component tokens
-            colors = []
-            floats = []
-            component_tokens = defaultdict(list)
+            # Group by category based on name prefix or type
+            foundations = defaultdict(list)
             
             for var in collection['variables']:
                 name = var['name']
                 parts = name.split('/')
+                category = parts[0]
                 
-                # Heuristic: if it starts with "Colors", it's a primitive color
-                if name.startswith('Colors/'):
-                    colors.append(var)
-                # If it starts with a component name (heuristic: not Colors, not Spacing if that existed)
-                # Actually, let's look at the structure. 
-                # "Card/Product/..." -> Component: Card, Sub: Product
-                elif len(parts) > 1 and parts[0] not in ['Colors', 'Spacing']:
-                    component_tokens[parts[0]].append(var)
-                else:
-                    # Fallback
-                    if var['type'] == 'COLOR':
-                        colors.append(var)
+                # If it's a color but not explicitly named "Colors", we might still want to group it
+                if var['type'] == 'COLOR':
+                    if category == 'Colors':
+                        foundations['Colors'].append(var)
                     else:
-                        floats.append(var)
+                        # Check if it's a component token or a foundation color
+                        # User asked to treat variables as foundations. 
+                        # If it's in _Primitives, it's likely a foundation or a primitive token.
+                        # Let's group by the first part of the name.
+                        foundations[category].append(var)
+                elif var['type'] == 'FLOAT':
+                    # Likely Spacing, Radius, Numbers
+                    foundations[category].append(var)
+                else:
+                    foundations[category].append(var)
 
-            # Generate COLORS.md
-            with open('docs/COLORS.md', 'w') as f:
-                f.write('# Colors\n\n')
-                f.write('| Name | Value (Mode 1) | Type |\n')
-                f.write('| --- | --- | --- |\n')
-                for var in colors:
-                    # Try to get value for first mode
-                    first_mode_id = list(modes.keys())[0]
-                    val_obj = var['values'].get(first_mode_id)
-                    
-                    val_str = "N/A"
-                    if isinstance(val_obj, dict):
-                        if 'r' in val_obj:
-                            hex_val = rgba_to_hex(val_obj['r'], val_obj['g'], val_obj['b'])
-                            val_str = f"`{hex_val}` <br> <div style='background-color:{hex_val};width:20px;height:20px;display:inline-block;border:1px solid #ccc'></div>"
-                        elif val_obj.get('type') == 'VARIABLE_ALIAS':
-                            alias_id = val_obj['id']
-                            alias_name = var_map.get(alias_id, {}).get('name', 'Unknown')
-                            val_str = f"Alias: `{alias_name}`"
-                    
-                    f.write(f"| {var['name']} | {val_str} | {var['type']} |\n")
-
-            # Generate COMPONENTS.md
-            with open('docs/COMPONENTS.md', 'w') as f:
-                f.write('# Component Tokens\n\n')
-                for comp_name, vars in component_tokens.items():
-                    f.write(f"## {comp_name}\n\n")
-                    f.write('| Token Name | Type | Description/Value |\n')
+            # Generate FOUNDATIONS.md
+            with open('docs/FOUNDATIONS.md', 'w') as f:
+                f.write('# Foundations\n\n')
+                f.write('Primitive variables that define the design system.\n\n')
+                
+                # Order: Colors, Number, others
+                ordered_keys = sorted(foundations.keys())
+                if 'Colors' in ordered_keys:
+                    ordered_keys.remove('Colors')
+                    ordered_keys.insert(0, 'Colors')
+                
+                for category in ordered_keys:
+                    f.write(f"## {category}\n\n")
+                    f.write('| Name | Value | Type |\n')
                     f.write('| --- | --- | --- |\n')
-                    for var in vars:
-                        # Simplified value display
+                    
+                    for var in foundations[category]:
+                        # Get value for first mode
                         first_mode_id = list(modes.keys())[0]
                         val_obj = var['values'].get(first_mode_id)
-                        val_display = "..."
-                        if isinstance(val_obj, dict) and val_obj.get('type') == 'VARIABLE_ALIAS':
-                             alias_id = val_obj['id']
-                             alias_name = var_map.get(alias_id, {}).get('name', 'Unknown')
-                             val_display = f"Alias: `{alias_name}`"
-                        elif isinstance(val_obj, dict) and 'r' in val_obj:
-                             val_display = "Color Value"
-                        elif isinstance(val_obj, (int, float)):
-                             val_display = str(val_obj)
                         
-                        f.write(f"| {var['name']} | {var['type']} | {val_display} |\n")
+                        val_str = "N/A"
+                        if isinstance(val_obj, dict):
+                            if 'r' in val_obj:
+                                hex_val = rgba_to_hex(val_obj['r'], val_obj['g'], val_obj['b'])
+                                val_str = f"`{hex_val}` <br> <div style='background-color:{hex_val};width:20px;height:20px;display:inline-block;border:1px solid #ccc'></div>"
+                            elif val_obj.get('type') == 'VARIABLE_ALIAS':
+                                alias_id = val_obj['id']
+                                alias_name = var_map.get(alias_id, {}).get('name', 'Unknown')
+                                val_str = f"Alias: `{alias_name}`"
+                        elif isinstance(val_obj, (int, float)):
+                            val_str = str(val_obj)
+                        
+                        f.write(f"| {var['name']} | {val_str} | {var['type']} |\n")
                     f.write('\n')
 
         elif collection_name == 'Translations':

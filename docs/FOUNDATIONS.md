@@ -1,6 +1,10 @@
-# Colors
+# Foundations
 
-| Name | Value (Mode 1) | Type |
+Primitive variables that define the design system.
+
+## Colors
+
+| Name | Value | Type |
 | --- | --- | --- |
 | Colors/Neutral/Black | `#000000` <br> <div style='background-color:#000000;width:20px;height:20px;display:inline-block;border:1px solid #ccc'></div> | COLOR |
 | Colors/Neutral/White | `#ffffff` <br> <div style='background-color:#ffffff;width:20px;height:20px;display:inline-block;border:1px solid #ccc'></div> | COLOR |
@@ -94,3 +98,47 @@
 | Colors/Warning/700 | `#bb7206` <br> <div style='background-color:#bb7206;width:20px;height:20px;display:inline-block;border:1px solid #ccc'></div> | COLOR |
 | Colors/Warning/800 | `#995b00` <br> <div style='background-color:#995b00;width:20px;height:20px;display:inline-block;border:1px solid #ccc'></div> | COLOR |
 | Colors/Warning/900 | `#774700` <br> <div style='background-color:#774700;width:20px;height:20px;display:inline-block;border:1px solid #ccc'></div> | COLOR |
+
+## Boolean
+
+| Name | Value | Type |
+| --- | --- | --- |
+| Boolean/Yes | True | BOOLEAN |
+| Boolean/No | False | BOOLEAN |
+
+## Number
+
+| Name | Value | Type |
+| --- | --- | --- |
+| Number/2 | 2 | FLOAT |
+| Number/4 | 4 | FLOAT |
+| Number/6 | 6 | FLOAT |
+| Number/8 | 8 | FLOAT |
+| Number/10 | 10 | FLOAT |
+| Number/12 | 12 | FLOAT |
+| Number/14 | 14 | FLOAT |
+| Number/16 | 16 | FLOAT |
+| Number/18 | 18 | FLOAT |
+| Number/20 | 20 | FLOAT |
+| Number/22 | 22 | FLOAT |
+| Number/24 | 24 | FLOAT |
+| Number/26 | 26 | FLOAT |
+| Number/28 | 28 | FLOAT |
+| Number/30 | 30 | FLOAT |
+| Number/32 | 32 | FLOAT |
+| Number/34 | 34 | FLOAT |
+| Number/36 | 36 | FLOAT |
+| Number/38 | 38 | FLOAT |
+| Number/40 | 40 | FLOAT |
+| Number/44 | 44 | FLOAT |
+| Number/76 | 76 | FLOAT |
+
+## Shadow
+
+| Name | Value | Type |
+| --- | --- | --- |
+| Shadow/Buttons 900 | `#ffffff` <br> <div style='background-color:#ffffff;width:20px;height:20px;display:inline-block;border:1px solid #ccc'></div> | COLOR |
+| Shadow/Buttons 500 | `#ffffff` <br> <div style='background-color:#ffffff;width:20px;height:20px;display:inline-block;border:1px solid #ccc'></div> | COLOR |
+| Shadow/Popup | `#ffffff` <br> <div style='background-color:#ffffff;width:20px;height:20px;display:inline-block;border:1px solid #ccc'></div> | COLOR |
+| Shadow/Butons 100 | `#ffffff` <br> <div style='background-color:#ffffff;width:20px;height:20px;display:inline-block;border:1px solid #ccc'></div> | COLOR |
+

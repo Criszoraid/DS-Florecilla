@@ -18,8 +18,7 @@ This repository serves as the single source of truth for the Florecilla Design S
 ## Documentation
 We have automatically generated documentation based on the design tokens:
 
-- [**Colors**](docs/COLORS.md): Complete palette and color definitions.
-- [**Components**](docs/COMPONENTS.md): Component-specific tokens (Cards, Buttons, Navigation).
+- [**Foundations**](docs/FOUNDATIONS.md): Core design variables including Colors, Spacing, and other primitives.
 - [**Translations**](docs/TRANSLATIONS.md): Localized strings for the application.
 
 ## Usage
