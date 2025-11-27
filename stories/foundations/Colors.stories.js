@@ -9,7 +9,7 @@ export default {
 
 // Read the tokens.json to get color data
 const getColorTokens = async () => {
-    const response = await fetch('/tokens.json');
+    const response = await fetch('./tokens.json');
     const data = await response.json();
 
     const colors = [];

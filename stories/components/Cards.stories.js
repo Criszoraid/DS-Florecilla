@@ -8,7 +8,7 @@ export default {
 };
 
 const getCardTokens = async () => {
-    const response = await fetch('/tokens.json');
+    const response = await fetch('./tokens.json');
     const data = await response.json();
 
     const cards = [];
