@@ -41,5 +41,22 @@ Semantic tokens for UI components:
 ## Usage
 Design tokens can be transformed for various platforms (Web, iOS, Android) using tools like [Style Dictionary](https://amzn.github.io/style-dictionary/).
 
+## Storybook
+We use Storybook to document and visualize our design tokens and components.
+
+### Running Locally
+To start the Storybook development server:
+```bash
+npm install
+npm run storybook
+```
+
+### Building Static Site
+To build the static Storybook site:
+```bash
+npm run build-storybook
+```
+The output will be in the `storybook-static` directory.
+
 ## Contributing
 Please ensure any changes to the design tokens in code are reflected in the Figma file and vice versa.

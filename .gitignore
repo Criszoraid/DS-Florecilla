@@ -2,3 +2,8 @@
 node_modules/
 dist/
 .env
+storybook-static/
+package-lock.json
+
+*storybook.log
+storybook-static
